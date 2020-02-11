@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XamarinPrism7.Controls"
+             x:Class="XamarinPrism7.Views.MainPage"
+             BackgroundColor="#EFFBFF"
+             Title="{Binding Title}">
+    <StackLayout>
+
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" WidthRequest="400" HorizontalOptions="Center">
+
+            <CheckBox IsChecked="True" Color="Blue" HorizontalOptions="Center" />
+
+            
+            <controls:FloatingLabelInput Title="Username" HorizontalOptions="Center" Margin="20,5,20,10" />
+            <controls:FloatingLabelInput Title="Password" IsPassword="true" HorizontalOptions="Center" Margin="20,10,20,10" />
+            <Button Text="Sign In" HeightRequest="46" BackgroundColor="Green" TextColor="#EFFBFF" Margin="20,10,20,5" Command="{Binding BackCommand}" />
+            <Button Text="Toast" HeightRequest="46" BackgroundColor="#00C0FF" TextColor="#EFFBFF" Margin="20,10,20,5" Command="{Binding ToastCommand}" />
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>
