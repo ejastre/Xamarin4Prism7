@@ -18,7 +18,7 @@ namespace XamarinPrism7
          * Toast Message e Loading
          * 
          * MISSING ***
-         * Add AppCenter
+         * Add AppCenter and Log Class
          * Add Firebase Cloud API
          * 
          */
