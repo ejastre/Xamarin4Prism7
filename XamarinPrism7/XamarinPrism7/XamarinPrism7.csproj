@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Controls\FloatingLabelInput.xaml">
+    <Compile Update="Controls\InputLabel.xaml.cs">
+      <DependentUpon>InputLabel.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Controls\InputLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Page1.xaml">

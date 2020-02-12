@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace XamarinPrism7.Controls
 {
-    public partial class FloatingLabelInput : ContentView
+    public partial class InputLabel : ContentView
     {
         int _placeholderFontSize = 18;
         int _titleFontSize = 14;
@@ -16,13 +16,13 @@ namespace XamarinPrism7.Controls
         public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", typeof(string), typeof(string), string.Empty, BindingMode.TwoWay, null, HandleBindingPropertyChangedDelegate);
 
         public static readonly BindableProperty TitleProperty = BindableProperty.Create("Title", typeof(string), typeof(string), string.Empty, BindingMode.TwoWay, null);
-        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(FloatingLabelInput), ReturnType.Default);
-        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create("IsPassword", typeof(bool), typeof(FloatingLabelInput), default(bool));
-        public static readonly BindableProperty KeyboardProperty = BindableProperty.Create("Keyboard", typeof(Keyboard), typeof(FloatingLabelInput), Keyboard.Default, coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default);
+        public static readonly BindableProperty ReturnTypeProperty = BindableProperty.Create(nameof(ReturnType), typeof(ReturnType), typeof(InputLabel), ReturnType.Default);
+        public static readonly BindableProperty IsPasswordProperty = BindableProperty.Create("IsPassword", typeof(bool), typeof(InputLabel), default(bool));
+        public static readonly BindableProperty KeyboardProperty = BindableProperty.Create("Keyboard", typeof(Keyboard), typeof(InputLabel), Keyboard.Default, coerceValue: (o, v) => (Keyboard)v ?? Keyboard.Default);
 
         static async void HandleBindingPropertyChangedDelegate(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = bindable as FloatingLabelInput;
+            var control = bindable as InputLabel;
             if (!control.EntryField.IsFocused)
             {
                 if (!string.IsNullOrEmpty((string)newValue))
@@ -66,7 +66,7 @@ namespace XamarinPrism7.Controls
             set { SetValue(KeyboardProperty, value); }
         }
 
-        public FloatingLabelInput()
+        public InputLabel()
         {
             InitializeComponent();
             LabelTitle.TranslationX = 10;
