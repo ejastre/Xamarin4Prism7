@@ -189,6 +189,9 @@
     <PackageReference Include="Acr.UserDialogs">
       <Version>7.0.35</Version>
     </PackageReference>
+    <PackageReference Include="FirebaseDatabase.net">
+      <Version>4.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
   </ItemGroup>

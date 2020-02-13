@@ -6,7 +6,6 @@ namespace XamarinPrism7.Views
     {
         public MainPage()
         {
-
             InitializeComponent();
         }
     }

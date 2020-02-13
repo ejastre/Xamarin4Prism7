@@ -30,7 +30,7 @@ namespace XamarinPrism7
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/Test");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -38,6 +38,7 @@ namespace XamarinPrism7
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<Page1, Page1ViewModel>();
+            containerRegistry.RegisterForNavigation<Test, TestViewModel>();
         }
     }
 }
