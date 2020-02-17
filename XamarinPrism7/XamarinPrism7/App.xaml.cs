@@ -16,10 +16,11 @@ namespace XamarinPrism7
          * Prism 7
          * Floating Label
          * Toast Message e Loading
+         * Firebase Cloud API
          * 
          * MISSING ***
          * Add AppCenter and Log Class
-         * Add Firebase Cloud API
+         * 2 way data binding Prism
          * 
          */
         public App() : this(null) { }
@@ -39,6 +40,7 @@ namespace XamarinPrism7
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<Page1, Page1ViewModel>();
             containerRegistry.RegisterForNavigation<Test, TestViewModel>();
+            containerRegistry.RegisterForNavigation<Page2, Page2ViewModel>();
         }
     }
 }

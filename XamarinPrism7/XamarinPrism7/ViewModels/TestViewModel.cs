@@ -1,84 +1,57 @@
-﻿using Firebase.Database;
-using Firebase.Database.Query;
-using Firebase.Database.Streaming;
+﻿using Acr.UserDialogs;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinPrism7.Helper;
 using XamarinPrism7.Models;
 
 namespace XamarinPrism7.ViewModels
 {
-    public class TestViewModel : BaseViewModel
+    public class TestViewModel : ViewModelBase
     {
-        private readonly string ENDERECO_FIREBASE = "https://xamarin4prism7.firebaseio.com/";
-        private readonly FirebaseClient _firebaseClient;
-
-        private ObservableCollection<Pedido> _pedidos;
-
-        public ObservableCollection<Pedido> Pedidos
+        private Person _person;
+        public Person Person
         {
-            get { return _pedidos; }
-            set { _pedidos = value; OnPropertyChanged(); }
+            get { return _person; }
+            set { SetProperty(ref _person, value); }
         }
 
-        public Pedido PedidoSelecionado;
+        public ICommand SalvarPedidoCmd { get; set; }
 
-        public ICommand AceitarPedidoCmd { get; set; }
+        FirebaseHelper firebaseHelper = new FirebaseHelper();
 
         public TestViewModel()
         {
-            _firebaseClient = new FirebaseClient(ENDERECO_FIREBASE);
-            Pedidos = new ObservableCollection<Pedido>();
-            AceitarPedidoCmd = new Command(() => AceitarPedido());
-            ListenerPedidos();
-        }
+            SalvarPedidoCmd = new Command(async () => await SalvarPedido());
 
-        private void AceitarPedido()
-        {
-            PedidoSelecionado.IdVendedor = 1;
-            _firebaseClient
-                .Child("pedidos")
-                .Child(PedidoSelecionado.KeyPedido)
-                .PutAsync(PedidoSelecionado);
-        }
-
-        private void ListenerPedidos()
-        {
-            _firebaseClient
-                .Child("pedidos")
-                .AsObservable<Pedido>()
-                .Subscribe(d =>
-                {
-                    if (d.EventType == FirebaseEventType.InsertOrUpdate)
-                    {
-                        if (d.Object.IdVendedor == 0)
-                            AdicionarPedido(d.Key, d.Object);
-                        else
-                            RemoverPedido(d.Key);
-                    }
-                    else if (d.EventType == FirebaseEventType.Delete)
-                    {
-                        RemoverPedido(d.Key);
-                    }
-                });
-        }
-
-        private void AdicionarPedido(string key, Pedido pedido)
-        {
-            Pedidos.Add(new Pedido()
+            Person = new Person
             {
-                KeyPedido = key,
-                Cliente = pedido.Cliente,
-                Produto = pedido.Produto
-            });
+                PersonId = 5,
+                Name = "Juvenal Antena"
+            };
         }
 
-        private void RemoverPedido(string pedidoKey)
+        private async Task SalvarPedido()
         {
-            var pedido = Pedidos.FirstOrDefault(x => x.KeyPedido == pedidoKey);
-            Pedidos.Remove(pedido);
+            try
+            {
+                using (UserDialogs.Instance.Loading("Saving...", null, null, true, MaskType.Black))
+                {
+                    var person = Person;
+                    var result = await firebaseHelper.AddPerson(person.PersonId, person.Name);
+
+                    if (string.IsNullOrEmpty(result?.Key))
+                        UserDialogs.Instance.Toast("User exists!");
+                    else
+                        UserDialogs.Instance.Toast("Save Successful!");
+                }                
+            }
+            catch (Exception ex)
+            {
+                UserDialogs.Instance.Toast("Failed to Save!");
+            }
         }
+
     }
 }

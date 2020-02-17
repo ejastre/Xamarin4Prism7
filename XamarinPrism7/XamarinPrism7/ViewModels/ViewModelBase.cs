@@ -16,7 +16,7 @@ namespace XamarinPrism7.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public ViewModelBase(INavigationService navigationService, IPageDialogService pageDialogService = null)
+        public ViewModelBase(INavigationService navigationService = null, IPageDialogService pageDialogService = null)
         {
             NavigationService = navigationService;
             PageDialogService = pageDialogService;
