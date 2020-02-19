@@ -6,13 +6,82 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="XamarinPrism7.Views.Test">
 
-    <StackLayout Padding="50">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
-        <controls:InputLabel Title="PersonId" Text="{Binding Person.PersonId, Mode=TwoWay}" HorizontalOptions="Center" Margin="20,5,20,10" />
-        <controls:InputLabel Title="Name" Text="{Binding Person.Name, Mode=TwoWay}" HorizontalOptions="Center" Margin="20,5,20,10" />
+    <StackLayout>
+    
+    <StackLayout Padding="20">
 
-        <Button Command="{Binding SalvarPedidoCmd}" Text="SAVE"></Button>
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <controls:InputLabel Grid.Row="0" HorizontalOptions="FillAndExpand" Title="PersonId" Text="{Binding Person.PersonId, Mode=TwoWay}" Margin="20,5,20,10" />
+                <controls:InputLabel Grid.Row="1" HorizontalOptions="FillAndExpand" Title="Name" Text="{Binding Person.Name, Mode=TwoWay}" Margin="20,5,20,10" />
+
+                <Button Grid.Row="2" Command="{Binding SalvarPedidoCmd}" Text="SAVE"/>
+                <Button Grid.Row="3" Command="{Binding UpdatePedidoCmd}" Text="UPDATE"/>
+
+            </Grid>
+
+        </StackLayout>
+    
+    <StackLayout>
+
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+            
+            <CollectionView ItemsSource="{Binding Persons}" 
+                            BackgroundColor="LightBlue"                                                                              
+              SelectionMode="Single" 
+                            SelectedItem="{Binding Person, Mode=TwoWay}"
+              SelectionChangedCommand="{Binding SelectedCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">                            
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Grid.Column="0"
+                                   Text="{Binding PersonId}"
+                                   TextColor="Black"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"/>
+                            
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   TextColor="Blue"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
 
     </StackLayout>
 
+    </StackLayout>
+    
 </ContentPage>

@@ -12,15 +12,16 @@ namespace XamarinPrism7
     {
         /* 
          * DONE ***
-         * XF 4.2
+         * XF 4.4.0.99
          * Prism 7
          * Floating Label
          * Toast Message e Loading
          * Firebase Cloud API
+         * Prism TwoWay Data Binding
          * 
          * MISSING ***
          * Add AppCenter and Log Class
-         * 2 way data binding Prism
+         * Add Delete Button
          * 
          */
         public App() : this(null) { }
