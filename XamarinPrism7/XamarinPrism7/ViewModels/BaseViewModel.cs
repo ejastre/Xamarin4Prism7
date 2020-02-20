@@ -1,15 +1,45 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using Prism.Mvvm;
+using Prism.Navigation;
+using Prism.Services;
 
 namespace XamarinPrism7.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : BindableBase, INavigationAware, IDestructible
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        protected INavigationService NavigationService { get; private set; }
+        protected IPageDialogService PageDialogService { get; }
 
-        protected void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        private string _title;
+        public string Title
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+
+        public BaseViewModel(INavigationService navigationService = null, IPageDialogService pageDialogService = null)
+        {
+            NavigationService = navigationService;
+            PageDialogService = pageDialogService;
+        }
+
+        public virtual void OnNavigatedFrom(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void OnNavigatedTo(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void OnNavigatingTo(INavigationParameters parameters)
+        {
+
+        }
+
+        public virtual void Destroy()
+        {
+
         }
     }
 }

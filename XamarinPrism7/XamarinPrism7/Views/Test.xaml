@@ -25,63 +25,92 @@
     </ContentPage.Resources>
 
     <StackLayout>
-    
-    <StackLayout Padding="20">
+
+        <StackLayout Padding="20">
 
             <Grid Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />                    
                 </Grid.RowDefinitions>
 
                 <controls:InputLabel Grid.Row="0" HorizontalOptions="FillAndExpand" Title="PersonId" Text="{Binding Person.PersonId, Mode=TwoWay}" Margin="20,5,20,10" />
                 <controls:InputLabel Grid.Row="1" HorizontalOptions="FillAndExpand" Title="Name" Text="{Binding Person.Name, Mode=TwoWay}" Margin="20,5,20,10" />
 
-                <Button Grid.Row="2" Command="{Binding SalvarPedidoCmd}" Text="SAVE"/>
-                <Button Grid.Row="3" Command="{Binding UpdatePedidoCmd}" Text="UPDATE"/>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />                        
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Command="{Binding SalvarPedidoCmd}" Text="INSERT"/>
+                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding UpdatePedidoCmd}" Text="UPDATE"/>
+                    <Button Grid.Row="1" Grid.Column="0" Command="{Binding DeleteCmd}" Text="DELETE"/>
+                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding GoBackCmd}" Text="VOLTAR"/>
+
+                </Grid>                
 
             </Grid>
 
         </StackLayout>
-    
-    <StackLayout>
 
-        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
-            
-            <CollectionView ItemsSource="{Binding Persons}" 
+        <StackLayout>
+
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+
+                <CollectionView ItemsSource="{Binding Persons}"
+                                EmptyView="No results found!"
                             BackgroundColor="LightBlue"                                                                              
-              SelectionMode="Single" 
+                            SelectionMode="Single" 
                             SelectedItem="{Binding Person, Mode=TwoWay}"
-              SelectionChangedCommand="{Binding SelectedCommand}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10">                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <Label Grid.Column="0"
+                            SelectionChangedCommand="{Binding SelectedCommand}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0"
                                    Text="{Binding PersonId}"
                                    TextColor="Black"
                                    FontAttributes="Bold"
                                    FontSize="Medium"/>
-                            
-                            <Label Grid.Column="1"
+
+                                <Label Grid.Column="1"
                                    Text="{Binding Name}"
                                    TextColor="Blue"
                                    FontAttributes="Bold"
                                    FontSize="Medium" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <!--<CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="FillAndExpand">
+                            
+                            <Label Text="No results found"
+                       FontAttributes="Bold"
+                       FontSize="18"
+                       TextColor="Black"
+                       HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                   VerticalOptions="Center"/>
+                            
+                            
+                        </StackLayout>
+                    </CollectionView.EmptyView>-->
+                </CollectionView>
+                
+            </RefreshView>
+
+        </StackLayout>
 
     </StackLayout>
 
-    </StackLayout>
-    
 </ContentPage>

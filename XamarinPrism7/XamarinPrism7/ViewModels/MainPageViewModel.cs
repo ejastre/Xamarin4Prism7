@@ -5,7 +5,7 @@ using Prism.Navigation;
 
 namespace XamarinPrism7.ViewModels
 {    
-    public class MainPageViewModel : ViewModelBase
+    public class MainPageViewModel : BaseViewModel
     {
         public DelegateCommand BackCommand { get; }
         public DelegateCommand ToastCommand { get; }
@@ -13,7 +13,7 @@ namespace XamarinPrism7.ViewModels
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = "Main Page";
+            Title = "Main Page 2";
 
             BackCommand = new DelegateCommand(BackCommandExecuted);
             ToastCommand = new DelegateCommand(ToastCommandExecuted);
@@ -21,12 +21,12 @@ namespace XamarinPrism7.ViewModels
 
         private async void BackCommandExecuted()
         {
-            await NavigationService.NavigateAsync("Page1");
+            await NavigationService.NavigateAsync("Test");
         }
 
-        private void ToastCommandExecuted()
+        private async void ToastCommandExecuted()
         {
-            UserDialogs.Instance.Toast("Toast Test");
+            await NavigationService.NavigateAsync("Page1");
         }
     }
 }

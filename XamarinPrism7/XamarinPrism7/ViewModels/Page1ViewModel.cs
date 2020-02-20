@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
@@ -8,7 +6,7 @@ using Prism.Services;
 
 namespace XamarinPrism7.ViewModels
 {
-    public class Page1ViewModel : ViewModelBase
+    public class Page1ViewModel : BaseViewModel
     {
         public DelegateCommand BackCommand { get; }
 

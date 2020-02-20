@@ -27,7 +27,7 @@ namespace XamarinPrism7.Helper
             catch (System.Exception ex)
             {
                 return null;
-            }            
+            }
         }
 
         public async Task<FirebaseObject<Person>> AddPerson(int personId, string name)
@@ -64,13 +64,27 @@ namespace XamarinPrism7.Helper
               .PutAsync(new Person() { PersonId = personId, Name = name });
         }
 
-        public async Task DeletePerson(int personId)
+        public async Task<bool> DeletePerson(int personId)
         {
-            var toDeletePerson = (await firebase
-              .Child("Persons")
-              .OnceAsync<Person>()).Where(a => a.Object.PersonId == personId).FirstOrDefault();
-            await firebase.Child("Persons").Child(toDeletePerson.Key).DeleteAsync();
+            try
+            {
+                var result = (await firebase
+                    .Child("Persons")
+                    .OnceAsync<Person>()).Where(a => a.Object.PersonId == personId).FirstOrDefault();
 
+                if (result == null) return false;
+
+                await firebase
+                        .Child("Persons")
+                        .Child(result.Key)
+                        .DeleteAsync();
+
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }            
         }
     }
 }

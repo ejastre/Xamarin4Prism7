@@ -18,11 +18,12 @@ namespace XamarinPrism7
          * Toast Message e Loading
          * Firebase Cloud API
          * Prism TwoWay Data Binding
+         * Add Delete Button
          * 
          * MISSING ***
          * Add AppCenter and Log Class
-         * Add Delete Button
-         * 
+         * Make CRUD Generic and Test with other Table
+         * Splash Screen
          */
         public App() : this(null) { }
 
@@ -32,7 +33,7 @@ namespace XamarinPrism7
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/Test");
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
