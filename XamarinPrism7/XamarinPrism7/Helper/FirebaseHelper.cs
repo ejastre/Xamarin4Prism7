@@ -4,62 +4,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using XamarinPrism7.Models;
+using System;
 
 namespace XamarinPrism7.Helper
 {
     public class FirebaseHelper
     {
-        private readonly FirebaseClient firebase = new FirebaseClient("https://xamarin4prism7.firebaseio.com/");
+        // https://github.com/step-up-labs/firebase-database-dotnet
 
-        public async Task<List<Person>> GetAllPersons()
+        private readonly FirebaseClient firebase = 
+            new FirebaseClient("https://xamarin4prism7.firebaseio.com/");
+
+        public async Task<List<FirebaseObject<T>>> GetAll<T>()
         {
             try
             {
-                var persons = (await firebase
-                                      .Child("Persons")
-                                      .OnceAsync<Person>()).Select(item => new Person
-                                      {
-                                          Name = item.Object.Name,
-                                          PersonId = item.Object.PersonId
-                                      }).ToList();
-                return persons;
+                var list = (await firebase.Child(typeof(T).Name)
+                                          .OnceAsync<T>()).ToList();
+                return list;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
-        public async Task<FirebaseObject<Person>> AddPerson(int personId, string name)
+        public async Task<FirebaseObject<T>> InsertObject<T>(T obj, string key)
         {
-            var result = (await firebase.Child("Persons")
-                                        .OnceAsync<Person>()).Where(a => a.Object.PersonId == personId)
-                                                             .FirstOrDefault();
+            try
+            {
+                // Check if exists
+                var result = (await firebase
+                                    .Child(typeof(T).Name)
+                                    .OrderByKey()
+                                    .StartAt(key)
+                                    .LimitToFirst(1)
+                                    .OnceAsync<T>()).FirstOrDefault();
 
-            return string.IsNullOrEmpty(result?.Key)
-                ? await firebase
-                  .Child("Persons")
-                  .PostAsync(new Person() { PersonId = personId, Name = name })
-                : null;
+                return result == null
+                    ? await firebase
+                                  .Child(typeof(T).Name)
+                                  .PostAsync(obj)
+                    : null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }            
         }
 
-        public async Task<Person> GetPerson(int personId)
-        {
-            var allPersons = await GetAllPersons();
-            await firebase
-              .Child("Persons")
-              .OnceAsync<Person>();
-            return allPersons.Where(a => a.PersonId == personId).FirstOrDefault();
-        }
+        //public async Task<Person> GetPerson(int personId)
+        //{
+        //    var allPerson = await GetAllPerson();
+        //    await firebase
+        //      .Child("Person")
+        //      .OnceAsync<Person>();
+        //    return allPerson.Where(a => a.PersonId == personId).FirstOrDefault();
+        //}
 
         public async Task UpdatePerson(int personId, string name)
         {
             var toUpdatePerson = (await firebase
-              .Child("Persons")
+              .Child("Person")
               .OnceAsync<Person>()).Where(a => a.Object.PersonId == personId).FirstOrDefault();
 
             await firebase
-              .Child("Persons")
+              .Child("Person")
               .Child(toUpdatePerson.Key)
               .PutAsync(new Person() { PersonId = personId, Name = name });
         }
@@ -69,13 +79,13 @@ namespace XamarinPrism7.Helper
             try
             {
                 var result = (await firebase
-                    .Child("Persons")
+                    .Child("Person")
                     .OnceAsync<Person>()).Where(a => a.Object.PersonId == personId).FirstOrDefault();
 
                 if (result == null) return false;
 
                 await firebase
-                        .Child("Persons")
+                        .Child("Person")
                         .Child(result.Key)
                         .DeleteAsync();
 

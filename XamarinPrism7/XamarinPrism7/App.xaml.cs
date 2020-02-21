@@ -19,10 +19,11 @@ namespace XamarinPrism7
          * Firebase Cloud API
          * Prism TwoWay Data Binding
          * Add Delete Button
+         * Make CRUD Generic and Test with other Table
          * 
          * MISSING ***
          * Add AppCenter and Log Class
-         * Make CRUD Generic and Test with other Table
+         * 
          * Splash Screen
          */
         public App() : this(null) { }
@@ -33,7 +34,7 @@ namespace XamarinPrism7
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/Test");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -41,8 +42,7 @@ namespace XamarinPrism7
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<Page1, Page1ViewModel>();
-            containerRegistry.RegisterForNavigation<Test, TestViewModel>();
-            containerRegistry.RegisterForNavigation<Page2, Page2ViewModel>();
+            containerRegistry.RegisterForNavigation<Test, TestViewModel>();            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace XamarinPrism7.Droid
 {
 	
 	
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
 	public partial class Resource
 	{
 		
@@ -11146,9 +11146,6 @@ namespace XamarinPrism7.Droid
 			
 			// aapt resource value: 0x7F07013F
 			public const int tooltip_frame_light = 2131165503;
-			
-			// aapt resource value: 0x7F070140
-			public const int warning = 2131165504;
 			
 			static Drawable()
 			{

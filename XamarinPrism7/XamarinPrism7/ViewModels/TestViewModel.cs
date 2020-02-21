@@ -66,11 +66,6 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Loading..."))
                 {
-                    Person = new Person
-                    {
-                        PersonId = 5,
-                        Name = "Juvenal Antena"
-                    };
                     Persons = new ObservableCollection<Person>();
                     
                     //TODO Qdo volta esta carregando?
@@ -97,7 +92,7 @@ namespace XamarinPrism7.ViewModels
 
         private async Task SelecteItem()
         {
-            await NavigationService.NavigateAsync("Page1");
+            //await NavigationService.NavigateAsync("Page1");
         }
 
         private async Task RefreshDataAsync()
@@ -106,15 +101,19 @@ namespace XamarinPrism7.ViewModels
             {
                 IsRefreshing = false;
 
-                var persons = await firebaseHelper.GetAllPersons();
+                var list = await firebaseHelper.GetAll<Person>();
 
+                var persons = list.Select(item => new Person
+                                      {
+                                          Key = item.Key,
+                                          Name = item.Object.Name,
+                                          PersonId = item.Object.PersonId
+                                      }).ToList();
                 if (persons == null)
                     UserDialogs.Instance.Toast(new ToastConfig("Failed to load data!"));
                 else
                     Persons = new ObservableCollection<Person>(persons.OrderBy(x => x.PersonId));                
-            }
-
-            
+            }            
         }
 
         private async Task SalvarPedido()
@@ -123,14 +122,23 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Adding..."))
                 {
-                    var person = Person;
-                    var result = await firebaseHelper.AddPerson(person.PersonId, person.Name);
+                    var result = await firebaseHelper.InsertObject<Person>(Person, Person.Key);
 
                     if (string.IsNullOrEmpty(result?.Key))
                         UserDialogs.Instance.Toast("User exists!");
                     else
                     {
-                        UserDialogs.Instance.Toast("Save Successful!");
+                        UserDialogs.Instance.Toast("Person Saved Successful!");
+                        await RefreshDataAsync();
+                    }
+
+                    var result2 = await firebaseHelper.InsertObject<Car>(new Car { Name = "Volvo", CarId = 1 }, "");
+
+                    if (string.IsNullOrEmpty(result2?.Key))
+                        UserDialogs.Instance.Toast("User exists!");
+                    else
+                    {
+                        UserDialogs.Instance.Toast("Car Saved Successful!");
                         await RefreshDataAsync();
                     }
                 }

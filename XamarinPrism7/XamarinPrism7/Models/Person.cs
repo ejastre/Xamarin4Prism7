@@ -2,6 +2,7 @@
 {
     public class Person
     {
+        public string Key { get; set; }
         public int PersonId { get; set; }
         public string Name { get; set; }
     }

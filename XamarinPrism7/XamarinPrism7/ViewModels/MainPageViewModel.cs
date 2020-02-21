@@ -1,10 +1,8 @@
-﻿using System;
-using Acr.UserDialogs;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Navigation;
 
 namespace XamarinPrism7.ViewModels
-{    
+{
     public class MainPageViewModel : BaseViewModel
     {
         public DelegateCommand BackCommand { get; }

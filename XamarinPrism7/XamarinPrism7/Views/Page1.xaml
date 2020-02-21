@@ -1,16 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms" xmlns:controls="clr-namespace:XamarinPrism7.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="XamarinPrism7.Views.Page1"
              Title="{Binding Title}">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
-        <Label Text="Page 1" FontAttributes="Bold" TextColor="Blue" />
+    <StackLayout>
 
-        <Button Text="Back" Command="{Binding BackCommand}"/>
+        <StackLayout Padding="20">
+
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <controls:InputLabel Grid.Row="0" HorizontalOptions="FillAndExpand" Title="CarId" Text="{Binding Car.CarId, Mode=TwoWay}" Margin="20,5,20,10" />
+                <controls:InputLabel Grid.Row="1" HorizontalOptions="FillAndExpand" Title="Name" Text="{Binding Car.Name, Mode=TwoWay}" Margin="20,5,20,10" />
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Command="{Binding SalvarPedidoCmd}" Text="INSERT"/>
+                    <Button Grid.Row="0" Grid.Column="1" Command="{Binding UpdatePedidoCmd}" Text="UPDATE"/>
+                    <Button Grid.Row="1" Grid.Column="0" Command="{Binding DeleteCmd}" Text="DELETE"/>
+                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding GoBackCmd}" Text="VOLTAR"/>
+
+                </Grid>
+
+            </Grid>
+
+        </StackLayout>
+
+        <StackLayout>
+
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+
+                <CollectionView ItemsSource="{Binding Cars}"
+                                EmptyView="No results found!"
+                            BackgroundColor="LightBlue"                                                                              
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding Car, Mode=TwoWay}"
+                            SelectionChangedCommand="{Binding SelectedCommand}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0"
+                                   Text="{Binding CarId}"
+                                   TextColor="Black"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium"/>
+
+                                <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   TextColor="Blue"
+                                   FontAttributes="Bold"
+                                   FontSize="Medium" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                   
+                </CollectionView>
+
+            </RefreshView>
+
+        </StackLayout>
 
     </StackLayout>
 
