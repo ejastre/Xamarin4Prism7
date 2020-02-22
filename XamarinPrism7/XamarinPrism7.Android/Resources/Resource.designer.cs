@@ -11142,10 +11142,13 @@ namespace XamarinPrism7.Droid
 			public const int roundedbgdark = 2131165501;
 			
 			// aapt resource value: 0x7F07013E
-			public const int tooltip_frame_dark = 2131165502;
+			public const int splash = 2131165502;
 			
 			// aapt resource value: 0x7F07013F
-			public const int tooltip_frame_light = 2131165503;
+			public const int tooltip_frame_dark = 2131165503;
+			
+			// aapt resource value: 0x7F070140
+			public const int tooltip_frame_light = 2131165504;
 			
 			static Drawable()
 			{
@@ -13289,6 +13292,9 @@ namespace XamarinPrism7.Droid
 			
 			// aapt resource value: 0x7F0E00E7
 			public const int RtlUnderlay_Widget_AppCompat_ActionButton_Overflow = 2131624167;
+			
+			// aapt resource value: 0x7F0E0204
+			public const int splashscreen = 2131624452;
 			
 			// aapt resource value: 0x7F0E00E8
 			public const int TextAppearance_AppCompat = 2131624168;

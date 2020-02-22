@@ -20,11 +20,12 @@ namespace XamarinPrism7
          * Prism TwoWay Data Binding
          * Add Delete Button
          * Make CRUD Generic and Test with other Table
+         * Splash Screen
          * 
          * MISSING ***
          * Add AppCenter and Log Class
+         * Add https://github.com/Baseflow/LottieXamarin
          * 
-         * Splash Screen
          */
         public App() : this(null) { }
 

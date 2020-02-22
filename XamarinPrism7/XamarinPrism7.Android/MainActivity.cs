@@ -2,12 +2,13 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Prism;
 using Prism.Ioc;
 
 namespace XamarinPrism7.Droid
 {
-    [Activity(Label = "Xamarin4Prism7", Icon = "@drawable/icon", Theme = "@style/MainTheme", 
+    [Activity(Label = "Xamarin4Prism7", Icon = "@drawable/icon", Theme = "@style/splashscreen", 
         MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -17,6 +18,11 @@ namespace XamarinPrism7.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             UserDialogs.Init(this);
+
+            base.Window.RequestFeature(WindowFeatures.ActionBar);
+            // Name of the MainActivity theme you had there before.
+            // Or you can use global::Android.Resource.Style.ThemeHoloLight
+            base.SetTheme(Resource.Style.MainTheme);
 
             base.OnCreate(bundle);
 
