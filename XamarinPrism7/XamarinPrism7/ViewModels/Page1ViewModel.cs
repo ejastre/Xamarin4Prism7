@@ -66,11 +66,7 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Loading..."))
                 {
-                    Car = new Car
-                    {
-                        CarId = 5,
-                        Name = "Juvenal Antena"
-                    };
+                    Car = new Car();
                     Cars = new ObservableCollection<Car>();
 
                     //TODO Qdo volta esta carregando?

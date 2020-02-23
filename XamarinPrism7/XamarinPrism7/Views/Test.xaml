@@ -35,8 +35,10 @@
                     <RowDefinition Height="Auto" />                    
                 </Grid.RowDefinitions>
 
-                <controls:InputLabel Grid.Row="0" HorizontalOptions="FillAndExpand" Title="PersonId" Text="{Binding Person.PersonId, Mode=TwoWay}" Margin="20,5,20,10" />
-                <controls:InputLabel Grid.Row="1" HorizontalOptions="FillAndExpand" Title="Name" Text="{Binding Person.Name, Mode=TwoWay}" Margin="20,5,20,10" />
+                <controls:InputLabel Grid.Row="0" HorizontalOptions="FillAndExpand" Title="PersonId" 
+                                     Text="{Binding Person.Key, Mode=TwoWay}" Margin="20,5,20,10" />
+                <controls:InputLabel Grid.Row="1" HorizontalOptions="FillAndExpand" Title="Name" 
+                                     Text="{Binding Person.Name, Mode=TwoWay}" Margin="20,5,20,10" />
 
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
@@ -78,7 +80,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column="0"
-                                   Text="{Binding PersonId}"
+                                   Text="{Binding Key}"
                                    TextColor="Black"
                                    FontAttributes="Bold"
                                    FontSize="Medium"/>

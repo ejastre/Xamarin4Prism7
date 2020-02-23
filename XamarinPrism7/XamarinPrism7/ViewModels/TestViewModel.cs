@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinPrism7.Helper;
+using XamarinPrism7.Interfaces;
 using XamarinPrism7.Models;
+using XamarinPrism7.Services;
 
 namespace XamarinPrism7.ViewModels
 {
@@ -49,7 +51,7 @@ namespace XamarinPrism7.ViewModels
         public ICommand DeleteCmd => new Command(async () => await DeleteOrder());
         public ICommand SelectedCommand => new Command(async () => await SelecteItem());        
 
-        private readonly FirebaseHelper firebaseHelper = new FirebaseHelper();
+        private readonly IDataStore firebase = new FirebaseDataStore();
 
         public TestViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
             : base(navigationService, pageDialogService)
@@ -66,6 +68,7 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Loading..."))
                 {
+                    Person = new Person();
                     Persons = new ObservableCollection<Person>();
                     
                     //TODO Qdo volta esta carregando?
@@ -101,19 +104,25 @@ namespace XamarinPrism7.ViewModels
             {
                 IsRefreshing = false;
 
-                var list = await firebaseHelper.GetAll<Person>();
+                var list = await firebase.GetItemsAsync<Person>();
 
-                var persons = list.Select(item => new Person
-                                      {
-                                          Key = item.Key,
-                                          Name = item.Object.Name,
-                                          PersonId = item.Object.PersonId
-                                      }).ToList();
-                if (persons == null)
+                if (list == null)
                     UserDialogs.Instance.Toast(new ToastConfig("Failed to load data!"));
                 else
-                    Persons = new ObservableCollection<Person>(persons.OrderBy(x => x.PersonId));                
-            }            
+                    Persons = new ObservableCollection<Person>(list.OrderBy(x => x.Name));
+
+                //var list = await firebase.GetAll<Person>();
+
+                //var persons = list.Select(item => new Person
+                //                      {
+                //    Key = item.Key,
+                //                          Name = item.Object.Name
+                //                      }).ToList();
+                //if (persons == null)
+                //    UserDialogs.Instance.Toast(new ToastConfig("Failed to load data!"));
+                //else
+                //    Persons = new ObservableCollection<Person>(persons.OrderBy(x => x.Name));                
+            }
         }
 
         private async Task SalvarPedido()
@@ -122,25 +131,15 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Adding..."))
                 {
-                    var result = await firebaseHelper.InsertObject<Person>(Person, Person.Key);
+                    var result = await firebase.AddItemAsync(Person);
 
-                    if (string.IsNullOrEmpty(result?.Key))
-                        UserDialogs.Instance.Toast("User exists!");
+                    if (!result)
+                        UserDialogs.Instance.Toast("Person exists!");
                     else
                     {
                         UserDialogs.Instance.Toast("Person Saved Successful!");
                         await RefreshDataAsync();
-                    }
-
-                    var result2 = await firebaseHelper.InsertObject<Car>(new Car { Name = "Volvo", CarId = 1 }, "");
-
-                    if (string.IsNullOrEmpty(result2?.Key))
-                        UserDialogs.Instance.Toast("User exists!");
-                    else
-                    {
-                        UserDialogs.Instance.Toast("Car Saved Successful!");
-                        await RefreshDataAsync();
-                    }
+                    }                               
                 }
             }
             catch (Exception ex)
@@ -153,11 +152,11 @@ namespace XamarinPrism7.ViewModels
         {
             try
             {
-                using (UserDialogs.Instance.Loading("Updating..."))
-                {
-                    await firebaseHelper.UpdatePerson(Person.PersonId, Person.Name);
-                    await RefreshDataAsync();
-                }
+                //using (UserDialogs.Instance.Loading("Updating..."))
+                //{
+                //    await firebase.UpdateObject(Person, Person.Key);
+                //    await RefreshDataAsync();
+                //}
             }
             catch (Exception ex)
             {
@@ -171,15 +170,15 @@ namespace XamarinPrism7.ViewModels
             {
                 using (UserDialogs.Instance.Loading("Deleting..."))
                 {
-                    var result = await firebaseHelper.DeletePerson(Person.PersonId);
+                    //var result = await firebaseHelper.DeletePerson(Person.PersonId);
 
-                    if (!result)
-                        UserDialogs.Instance.Toast("User not exists!");
-                    else
-                    {
-                        UserDialogs.Instance.Toast("Delete Successful!");
-                        await RefreshDataAsync();
-                    }
+                    //if (!result)
+                    //    UserDialogs.Instance.Toast("User not exists!");
+                    //else
+                    //{
+                    //    UserDialogs.Instance.Toast("Delete Successful!");
+                    //    await RefreshDataAsync();
+                    //}
                 }
             }
             catch (Exception ex)
