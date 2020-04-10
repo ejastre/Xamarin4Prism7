@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPrism7", "XamarinPrism7\XamarinPrism7\XamarinPrism7.csproj", "{2CEB17B9-DA82-40A4-B1DE-EAB37DFB2AAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinPrism7", "XamarinPrism7\XamarinPrism7\XamarinPrism7.csproj", "{2CEB17B9-DA82-40A4-B1DE-EAB37DFB2AAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinPrism7.Android", "XamarinPrism7\XamarinPrism7.Android\XamarinPrism7.Android.csproj", "{C45BA825-6E18-4C8B-805B-FC52500FB37B}"
 EndProject
@@ -95,7 +95,7 @@ Global
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.AppStore|iPhone.Build.0 = AppStore|iPhone
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.AppStore|iPhoneSimulator.ActiveCfg = AppStore|iPhoneSimulator
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
-		{959577ED-A5B1-4383-855A-A9BC341D0716}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{959577ED-A5B1-4383-855A-A9BC341D0716}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.Debug|iPhone.Build.0 = Debug|iPhone
 		{959577ED-A5B1-4383-855A-A9BC341D0716}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator

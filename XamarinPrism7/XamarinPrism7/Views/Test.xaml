@@ -4,7 +4,8 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:controls="clr-namespace:XamarinPrism7.Controls"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="XamarinPrism7.Views.Test">
+             x:Class="XamarinPrism7.Views.Test"
+             Title="{Binding Title}">
 
     <ContentPage.Resources>
         <Style TargetType="Grid">

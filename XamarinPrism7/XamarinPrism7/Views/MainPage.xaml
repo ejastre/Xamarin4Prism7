@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:XamarinPrism7.Controls"
              x:Class="XamarinPrism7.Views.MainPage"
              BackgroundColor="#EFFBFF"
-             Title="{Binding Title}">
+             Title = "Main Page">
     
 
         <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" WidthRequest="400" HorizontalOptions="FillAndExpand">

@@ -59,7 +59,19 @@ namespace XamarinPrism7.ViewModels
             Title = "Test Page";
 
             //Task.Run(async () => await InitializePage());            
-            InitializePage();
+            //InitializePage();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+        }
+
+        public override void OnNavigatingTo(INavigationParameters parameters)
+        {
         }
 
         private async Task InitializePage()

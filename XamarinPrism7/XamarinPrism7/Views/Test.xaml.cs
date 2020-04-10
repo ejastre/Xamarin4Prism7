@@ -9,6 +9,12 @@ namespace XamarinPrism7.Views
         public Test()
         {
             InitializeComponent();               
-        }        
+        }
+
+        protected override void OnAppearing()
+        {
+            var vm = this.BindingContext;
+        }
     }
+
 }
