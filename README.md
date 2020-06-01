@@ -1,2 +1,2 @@
 # Xamarin4Prism7
-Xamarin Forms 4.2 and Prism 7.0
+Xamarin Forms 4.6 and Prism 7.0
